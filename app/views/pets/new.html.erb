@@ -1,0 +1,12 @@
+<div class="mb-3">
+  <%= link_to "← Back to Pets", pets_path, class: "btn btn-outline-secondary btn-sm" %>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-header bg-success text-white">
+    <h2 class="h5 mb-0">New Pet</h2>
+  </div>
+  <div class="card-body">
+    <%= render "form", pet: @pet %>
+  </div>
+</div>

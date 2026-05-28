@@ -1,0 +1,58 @@
+<div class="mb-3">
+  <%= link_to "← Back to Appointments", appointments_path, class: "btn btn-outline-secondary btn-sm" %>
+  <%= link_to "Edit", edit_appointment_path(@appointment), class: "btn btn-outline-primary btn-sm ms-2" %>
+  <%= button_to "Delete", appointment_path(@appointment), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-outline-danger btn-sm ms-2" %>
+</div>
+
+<% status_colors = { "scheduled" => "primary", "in_progress" => "warning", "completed" => "success", "cancelled" => "danger" } %>
+
+<div class="card shadow-sm mb-4">
+  <div class="card-header bg-success text-white">
+    <h2 class="h5 mb-0">Appointment — <%= @appointment.date.strftime("%B %d, %Y %H:%M") %></h2>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><strong>Pet:</strong> <%= link_to @appointment.pet.name, pet_path(@appointment.pet) %></li>
+    <li class="list-group-item"><strong>Vet:</strong> <%= link_to "#{@appointment.vet.first_name} #{@appointment.vet.last_name}", vet_path(@appointment.vet) %></li>
+    <li class="list-group-item"><strong>Reason:</strong> <%= @appointment.reason %></li>
+    <li class="list-group-item">
+      <strong>Status:</strong>
+      <span class="badge bg-<%= status_colors[@appointment.status] %>">
+        <%= @appointment.status.humanize %>
+      </span>
+    </li>
+  </ul>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h4 class="mb-0">Treatments</h4>
+  <%= link_to "New Treatment", new_appointment_treatment_path(@appointment), class: "btn btn-success btn-sm" %>
+</div>
+
+<% if @appointment.treatments.any? %>
+  <% @appointment.treatments.each do |treatment| %>
+    <div class="card shadow-sm mb-3">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <strong><%= treatment.name %></strong>
+        <div>
+          <%= link_to "Edit", edit_appointment_treatment_path(@appointment, treatment), class: "btn btn-sm btn-outline-primary me-1" %>
+          <%= button_to "Delete", appointment_treatment_path(@appointment, treatment), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-sm btn-outline-danger" %>
+        </div>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Medication:</strong> <%= treatment.medication %></li>
+        <li class="list-group-item"><strong>Dosage:</strong> <%= treatment.dosage %></li>
+        <li class="list-group-item"><strong>Administered At:</strong> <%= treatment.administered_at.strftime("%B %d, %Y %H:%M") %></li>
+        <% if treatment.clinical_notes.present? %>
+          <li class="list-group-item">
+            <strong>Clinical Notes:</strong>
+            <div class="mt-2">
+              <%= treatment.clinical_notes %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% else %>
+  <p class="text-muted">No treatments recorded for this appointment.</p>
+<% end %>

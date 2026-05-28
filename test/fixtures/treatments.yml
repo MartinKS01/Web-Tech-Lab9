@@ -1,0 +1,6 @@
+rabies:
+  appointment: vaccination
+  name: Vaccination
+  medication: Rabies vaccine
+  dosage: 1ml
+  administered_at: <%= 1.day.ago %>

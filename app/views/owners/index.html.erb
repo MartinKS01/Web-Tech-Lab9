@@ -1,0 +1,30 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="mb-0">Owners</h1>
+  <%= link_to "New Owner", new_owner_path, class: "btn btn-success" %>
+</div>
+
+<table class="table table-bordered table-hover bg-white shadow-sm">
+  <thead class="table-success">
+    <tr>
+      <th>Full Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Number of Pets</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @owners.each do |owner| %>
+      <tr>
+        <td><%= link_to "#{owner.first_name} #{owner.last_name}", owner_path(owner) %></td>
+        <td><%= owner.email %></td>
+        <td><%= owner.phone %></td>
+        <td><%= owner.pets.size %></td>
+        <td>
+          <%= link_to "Edit", edit_owner_path(owner), class: "btn btn-sm btn-outline-primary me-1" %>
+          <%= button_to "Delete", owner_path(owner), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-sm btn-outline-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

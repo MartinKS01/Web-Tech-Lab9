@@ -1,0 +1,13 @@
+ana:
+  first_name: Ana
+  last_name: Garcia
+  email: ana@vetclinic.com
+  phone: "998143276"
+  specialization: General Practice
+
+carlos:
+  first_name: Carlos
+  last_name: Lopez
+  email: carlos@vetclinic.com
+  phone: "908154761"
+  specialization: Surgery

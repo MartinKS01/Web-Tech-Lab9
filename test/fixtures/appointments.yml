@@ -1,0 +1,13 @@
+checkup:
+  pet: max
+  vet: ana
+  date: <%= 3.days.from_now %>
+  reason: Annual checkup
+  status: 0
+
+vaccination:
+  pet: luna
+  vet: ana
+  date: <%= 1.day.ago %>
+  reason: Vaccination
+  status: 2

@@ -1,0 +1,13 @@
+martin:
+  first_name: Martin
+  last_name: Karl
+  email: martin@email.com
+  phone: "934741283"
+  address: Cristobal Colon 123
+
+sofia:
+  first_name: Sofia
+  last_name: Torres
+  email: sofia@email.com
+  phone: "986482163"
+  address: Av. La Plaza 132

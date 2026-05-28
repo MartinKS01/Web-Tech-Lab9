@@ -1,0 +1,15 @@
+max:
+  name: Max
+  species: dog
+  breed: Labrador
+  date_of_birth: 2019-03-15
+  weight: 28.5
+  owner: martin
+
+luna:
+  name: Luna
+  species: cat
+  breed: Siamese
+  date_of_birth: 2021-07-20
+  weight: 4.2
+  owner: sofia

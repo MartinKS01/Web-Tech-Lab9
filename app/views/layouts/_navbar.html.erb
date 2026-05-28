@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="/">VetClinic</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <%= link_to "Owners", owners_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Pets", pets_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Vets", vets_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Appointments", appointments_path, class: "nav-link" %>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <span class="nav-link text-white">
+              👤 <%= current_user.full_name %>
+            </span>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Edit Account", edit_user_registration_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-outline-light btn-sm ms-2 mt-1" %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Sign In", new_user_session_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
