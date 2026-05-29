@@ -1,7 +1,7 @@
 class Vet < ApplicationRecord
+  belongs_to :user, optional: true
   has_many :appointments
 
-  # Validations
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email, presence: true,
@@ -9,10 +9,8 @@ class Vet < ApplicationRecord
                     format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :specialization, presence: true
 
-  # Scopes
   scope :by_specialization, ->(specialization) { where(specialization: specialization) }
 
-  # Callbacks
   before_validation :normalize_email
 
   private

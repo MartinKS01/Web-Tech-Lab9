@@ -1,7 +1,11 @@
 <div class="mb-3">
   <%= link_to "← Back to Pets", pets_path, class: "btn btn-outline-secondary btn-sm" %>
-  <%= link_to "Edit", edit_pet_path(@pet), class: "btn btn-outline-primary btn-sm ms-2" %>
-  <%= button_to "Delete", pet_path(@pet), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-outline-danger btn-sm ms-2" %>
+  <% if policy(@pet).update? %>
+    <%= link_to "Edit", edit_pet_path(@pet), class: "btn btn-outline-primary btn-sm ms-2" %>
+  <% end %>
+  <% if policy(@pet).destroy? %>
+    <%= button_to "Delete", pet_path(@pet), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-outline-danger btn-sm ms-2" %>
+  <% end %>
 </div>
 
 <div class="card shadow-sm mb-4">
@@ -14,7 +18,7 @@
         <% if @pet.photo.attached? %>
           <%= image_tag @pet.photo, width: 300, class: "img-fluid rounded shadow-sm" %>
         <% else %>
-          <div class="bg-light border rounded d-flex align-items-center justify-content-center" style="width: 300px; height: 300px;">
+          <div class="bg-light border rounded d-flex align-items-center justify-content-center" style="width:300px;height:300px;">
             <span class="text-muted">No photo available</span>
           </div>
         <% end %>
@@ -37,11 +41,7 @@
 <% if upcoming.any? %>
   <table class="table table-bordered table-hover bg-white shadow-sm mb-4">
     <thead class="table-success">
-      <tr>
-        <th>Date</th>
-        <th>Reason</th>
-        <th>Status</th>
-      </tr>
+      <tr><th>Date</th><th>Reason</th><th>Status</th></tr>
     </thead>
     <tbody>
       <% upcoming.each do |appointment| %>
@@ -60,17 +60,13 @@
 <h4>Past Appointments</h4>
 <% past = @pet.appointments.past %>
 <% if past.any? %>
+  <% status_colors = { "scheduled" => "primary", "in_progress" => "warning", "completed" => "success", "cancelled" => "danger" } %>
   <table class="table table-bordered table-hover bg-white shadow-sm">
     <thead class="table-secondary">
-      <tr>
-        <th>Date</th>
-        <th>Reason</th>
-        <th>Status</th>
-      </tr>
+      <tr><th>Date</th><th>Reason</th><th>Status</th></tr>
     </thead>
     <tbody>
       <% past.each do |appointment| %>
-        <% status_colors = { "scheduled" => "primary", "in_progress" => "warning", "completed" => "success", "cancelled" => "danger" } %>
         <tr>
           <td><%= link_to appointment.date.strftime("%B %d, %Y %H:%M"), appointment_path(appointment) %></td>
           <td><%= appointment.reason %></td>

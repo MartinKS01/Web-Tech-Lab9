@@ -6,36 +6,22 @@ Three users are created on seed, one of each role:
 |-------|------------------------|-------------|
 | Admin | admin@vetclinic.com    | password123 |
 | Vet   | vet@vetclinic.com      | password123 |
+| Vet2  | vet2@vetclinic.com     | password123 |
 | Owner | owner@vetclinic.com    | password123 |
+| Owner2| owner2@vetclinic.com   | password123 |
 
-## Devise Customization
- 
-- first_name and last_name are added to the user model, also added to the signup and update with "configure_permitted_parameters" in "ApplicationController".
+## Authentication & Authorization
 
-- role created using an integer (owner: 0, vet: 1, admin: 2). The roles were created but don't change anything yet for the permissions of users
- — role assignment happens only through seeds or the Rails console.
-- After sign-in and sign-out, flash messages confirm the action.
+Authorization is enforced using Pundit based on user roles.
 
+### Role Matrix
 
-## System Dependencies
-
-### libvips (required for image variants)
-
-Active Storage uses libvips to resize and crop pet photos into thumbnails.
-
-** With Homebrew:**
-```bash
-brew install vips
-```
+- **Admin**: Full CRUD on every resource. 
+- **Vet**: Read-only on owners and pets. Can edit their own vet profile. Can create/update/destroy their own appointments and treatments.
+- **Owner**: Can view/edit their own owner record. Can manage their own pets and appointments. Read-only on vets.
 
 
-## Setup & Running
 
-```bash
-bundle install
-bin/rails db:setup
-bin/rails server
-```
 
 
 ## Trix Sanitization Check
